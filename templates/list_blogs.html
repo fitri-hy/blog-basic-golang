@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog List</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto p-6">
+        <div class="flex justify-between mb-6 items-center">
+			<h1 class="text-3xl font-bold mb-4">Daftar Blog</h1>
+			<a href="/dashboard" class="text-white bg-blue-500 hover:bg-blue-600 rounded px-4 py-2">Dashboard</a>
+        </div>
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 space-y-4">
+            {{ range . }}
+            <a href="/blog/{{ .ID }}" class="bg-white rounded-lg shadow-md flex flex-col">
+                <img src="/static/uploads/{{ .Image }}" alt="{{ .Title }}" class="w-full h-[150px] rounded-t-md object-cover">
+                <div class="p-4">
+					<h2 class="text-xl font-semibold overflow-hidden line-clamp-2">
+						{{ .Title }}
+					</h2>
+					<div class="flex gap-2 mt-4">
+						<img class="h-6 w-6 object-cover" src="/static/user.png">
+						<span class="font-semibold">
+							Fitri Hy
+						</span>
+					</div>
+				</div>
+            </a>
+            {{ end }}
+        </div>
+    </div>
+</body>
+</html>

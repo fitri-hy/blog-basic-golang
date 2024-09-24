@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    
+    <!-- Include Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Include jQuery and DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    
+    <style>
+        table.dataTable tbody tr:hover {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4">
+    <div class="container bg-white mx-auto p-6 rounded-lg shadow-lg">
+        <div class="flex justify-between items-center mb-6">
+			<h1 class="text-3xl font-bold mb-4">Dashboard</h1>
+			<div class="flex gap-2">
+				<a href="/dashboard/add" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Tambah</a>
+				<a href="/" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Situs</a>
+			</div>
+		</div>
+        <table id="blogTable" class="min-w-full mt-6 table-auto">
+            <thead>
+                <tr>
+                    <th class="text-left px-4 py-2">Gambar</th>
+                    <th class="text-left px-4 py-2">Judul</th>
+                    <th class="text-left px-4 py-2">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+				{{ range . }}
+				<tr class="hover:bg-gray-50 transition duration-200 ease-in-out">
+					<td class="px-4 py-4 whitespace-nowrap w-[10%]">
+						<div class="flex">
+							<div class="flex-shrink-0 h-auto w-auto">
+								<img src="/static/uploads/{{ .Image }}" alt="{{ .Title }}" class="h-8 w-8 rounded-full object-cover">
+							</div>
+						</div>
+					</td>
+					<td class="px-4 py-4 whitespace-nowrap">
+						<div class="text-sm font-medium text-gray-900">
+							{{ .Title }}
+						</div>
+					</td>
+					<td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 w-[15%]">
+						<a href="/dashboard/edit/{{ .ID }}" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-200 ease-in-out mr-4">Edit</a>
+						<a href="/dashboard/delete/{{ .ID }}" class="text-red-600 hover:text-red-800 font-semibold transition duration-200 ease-in-out">Delete</a>
+					</td>
+				</tr>
+				{{ end }}
+			</tbody>
+
+        </table>
+    </div>
+
+    <!-- Initialize DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#blogTable').DataTable({
+                "paging": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "pageLength": 5
+            });
+        });
+    </script>
+</body>
+</html>
